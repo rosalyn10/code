@@ -28,7 +28,7 @@
 
   export default {
     created() {
-      this.$parent.headerTitle = '欠费记录';
+//      this.$parent.headerTitle = '欠费记录';
       this.$api.post('/park-onstreet/payOrder/get_arrearage_list', {"userId": localStorage.userId}, r => {
         this.arrearageList = r.data.data;
         console.log(this.arrearageList);

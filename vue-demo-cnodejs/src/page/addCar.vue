@@ -1,5 +1,3 @@
-<script
-  src="../../../../project/park/doc/广安项目/code/park-parent/park-web-gateway/src/main/resources/public/new_ui/scripts/roadPath.js"></script>
 <template>
   <div>
     <label class="addCarTitle">请绑定真实有效的车牌号码</label>
@@ -20,7 +18,7 @@
   import { Toast } from 'mint-ui';
   export default {
     created() {
-      this.$parent.headerTitle = '添加车辆';
+
 
     },
     data() {

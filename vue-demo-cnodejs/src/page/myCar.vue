@@ -31,7 +31,7 @@
 
   export default {
     created() {
-      this.$parent.headerTitle = '我的车辆';
+
       this.$api.post('/park-onstreet/vehicle/get_vehicle_list', {"userId": localStorage.userId}, r => {
         for (let i = 0; i < r.data.length; i++) {
           r.data[i].isAutoPay = !!(parseInt(r.data[i].isAutoPay))

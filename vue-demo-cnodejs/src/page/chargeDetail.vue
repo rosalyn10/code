@@ -27,7 +27,7 @@
 <script type="text/ecmascript-6">
   export default {
     created() {
-      this.$parent.headerTitle = '缴费详情'
+//      this.$parent.headerTitle = '缴费详情'
       this.$api.post('/park-onstreet/account/get_balance', {"userId": localStorage.userId}, r => {
         this.balance = r.data;
         console.log(this.balance);

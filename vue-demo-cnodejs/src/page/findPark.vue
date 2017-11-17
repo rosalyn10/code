@@ -30,7 +30,7 @@
               v-model="popupVisible"
               popup-transition="popup-fade" position="bottom">
       <div class="roadCon">
-        <div>
+        <div class="firstDiv">
           <div class="divCon">
             <span class="roadNameSpan">{{this.theRoadName}}</span>
           </div>
@@ -39,14 +39,14 @@
           </div>
         </div>
         <div>
-          <div class="thDiv"><span class="moneySpan">{{this.spaceAvl}}/{{this.spaceTotal}}</span></div>
-          <div class="thDiv"><span class="moneySpan">{{this.freeTime}}分钟</span></div>
+          <div class="firDiv"><span class="moneySpan">{{this.spaceAvl}}/{{this.spaceTotal}}</span></div>
+          <div class="sndDiv"><span class="moneySpan">{{this.freeTime}}分钟</span></div>
           <div class="thDiv"><span class="moneySpan">{{this.hourMoney}}元/小时</span></div>
         </div>
         <div class="lastDiv">
-          <div class="thDiv"><span class="showSpan">空闲车位</span></div>
-          <div class="thDiv"><span class="showSpan">免费</span></div>
-          <div class="thDiv"><span class="showSpan">收费</span></div>
+          <div class="firDiv firstDiv"><span class="showSpan">空闲车位</span></div>
+          <div class="sndDiv firstDiv"><span class="showSpan">免费</span></div>
+          <div class="thDiv firstDiv"><span class="showSpan">收费</span></div>
         </div>
         <div class="directionDiv">
           <img src="../assets/go.png" class="goImg"/>
@@ -300,6 +300,7 @@
 
       openPhoneMap() {
         var _this = this;
+        this.popupVisible = false;
         AMap.plugin(["AMap.Driving"], function () {
           var drivingOption = {
             policy: AMap.DrivingPolicy.LEAST_TIME,
@@ -336,7 +337,7 @@
     /*color: #333;*/
     /*border: 1px solid silver;*/
     /*box-shadow: 3px 4px 3px 0px silver;*/
-    position: absolute;
+    position: fixed;
     top: 1px;
     /*left: 11%;*/
     border-radius: 5px;
@@ -382,7 +383,7 @@
   }
 
   .roadNameSpan {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
     margin: 0 5%;
   }
@@ -416,13 +417,13 @@
 
 
   .moneySpan {
-    font-size: 18px;
+    font-size: 12px;
     color: #4A90E2;
     margin: 0 5%;
   }
 
   .showSpan {
-    font-size: 18px;
+    font-size: 12px;
     color: #333;
     margin: 0 5%;
   }
@@ -439,7 +440,7 @@
 
   .divCon {
     display: inline-block;
-    width: 77%;
+    width: 80%;
   }
 
   .divLeft {
@@ -448,7 +449,13 @@
 
   .thDiv {
     display: inline-block;
-    width: 30%;
+    width: 27%;
+    text-align: center;
+
+  }
+  .sndDiv{
+    display: inline-block;
+    width: 40%;
     text-align: center;
   }
   .goImg{
@@ -458,5 +465,16 @@
     top: 10px;
     right: -15px;
   }
+  .firstDiv{
+    margin-bottom: 5%;
+  }
+  .firDiv{
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+
+  }
+
+
 
 </style>

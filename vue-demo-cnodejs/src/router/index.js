@@ -12,16 +12,20 @@ import Purse from '@/page/purse'
 import FindPark from '@/page/findPark'
 import Success from '@/page/Success'
 
+import utils from '@/utils'
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
-      component: Login
+      component: Login,
+      title: '智慧停车'
+
     }, {
       path: '/login',
-      component: Login
+      component: Login,
+      title: '登录'
     },
     {
       path: '/licensePay',
@@ -38,14 +42,17 @@ export default new Router({
     },
     {
       path: '/arrearsRecord',
-      component: ArrearsRecord
+      component: ArrearsRecord,
+      title: '欠费记录'
     },
     {
       path: '/addCar',
-      component: AddCar
+      component: AddCar,
+      title: '添加车辆'
     }, {
       path: '/myCar',
-      component: MyCar
+      component: MyCar,
+      title: '我的车辆'
     },
     {
       path: '/account',
@@ -61,7 +68,8 @@ export default new Router({
     },
     {
       path: '/findPark',
-      component: FindPark
+      component: FindPark,
+      title: '找车场'
     },
     {
       path: '/success',
@@ -69,3 +77,19 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  next()
+});
+
+router.afterEach((transition) => {
+  let path = transition.path
+
+  let item = router.options.routes.filter((ele) => {
+    return ele.path === path
+  })
+
+  item.length ? utils.setTitle(item[0].title) : utils.setTitle('智慧停车')
+})
+
+export default router

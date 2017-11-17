@@ -48,7 +48,7 @@
 
   export default {
     created() {
-      this.$parent.headerTitle = '车牌缴费'
+//      this.$parent.headerTitle = '车牌缴费'
       this.$api.post('/park-onstreet/vehicle/get_vehicle_list', {"userId": localStorage.userId}, r => {
         this.myCarList = r.data;
         if (this.myCarList.length) {
