@@ -10,7 +10,9 @@ import Account from '@/page/account'
 import ChargeRec from '@/page/chargeRec'
 import Purse from '@/page/purse'
 import FindPark from '@/page/findPark'
-import Success from '@/page/Success'
+import Success from '@/page/success'
+import ParkRec from '@/page/parkRec'
+import AppDownload from '@/page/appDownload'
 
 import utils from '@/utils'
 Vue.use(Router)
@@ -74,6 +76,13 @@ const router = new Router({
     {
       path: '/success',
       component: Success
+    },{
+      path:'/parkRec',
+      component:ParkRec,
+      title:'Í£³µ¼ÇÂ¼'
+    },{
+      path:'/appDownload',
+      component:AppDownload
     }
   ]
 })
