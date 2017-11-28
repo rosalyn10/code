@@ -4,9 +4,7 @@
     <mt-field label="验证码" placeholder="请输入验证码" type="number" v-model="verCode">
       <mt-button type="default" size="small" @click.native="getVerCode" :disabled="disable">{{this.buttonTitle}}</mt-button>
     </mt-field>
-    <router-link to="/findPark">
-      <mt-button type="primary" size="large" class="btn_large" @click.native="bindPhone"> 绑定手机</mt-button>
-    </router-link>
+    <mt-button type="primary" size="large" class="btn_large" @click.native="bindPhone"> 绑定手机</mt-button>
   </div>
 </template>
 <script>
@@ -55,12 +53,15 @@
       bindPhone: function () {
         let para = {
           "phone": this.phoneNum,
-          "openId": "eeeeee",
+          "openId": this.$route.query.openId,
+          "sourceCode":this.$route.query.sourceCode,
           "verifyCode": this.verCode
         };
+        this.$router.push(this.$route.query.to);
         this.$api.post('/park-onstreet/appuser/wx_bound', para, r => {
           if (r.code == 1000) {
             localStorage.setItem("userId", r.data.userId);
+            this.$router.push(this.$route.query.redirect)
           }
 
         })

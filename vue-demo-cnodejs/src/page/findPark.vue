@@ -474,7 +474,13 @@
     text-align: center;
 
   }
-
+  .clearBg{
+    height: auto;
+  }
+  .mint-search-list{
+    position: relative;
+    padding: 0;
+  }
 
 
 </style>
