@@ -13,6 +13,9 @@ import FindPark from '@/page/findPark'
 import Success from '@/page/success'
 import ParkRec from '@/page/parkRec'
 import AppDownload from '@/page/appDownload'
+import Park from'@/page/park'
+import CarList from'@/page/carList'
+import ParkSuccess from'@/page/parkSuccess'
 
 import utils from '@/utils'
 Vue.use(Router)
@@ -100,6 +103,21 @@ const router = new Router({
       path: '/appDownload',
       component: AppDownload,
       title: 'app下载',
+      meta: { requiresAuth: true }
+    }, {
+      path: '/park',
+      component: Park,
+      title: '我要停车',
+      meta: { requiresAuth: true }
+    }, {
+      path: '/carList',
+      component: CarList,
+      title: '选择车辆',
+      meta: { requiresAuth: true }
+    }, {
+      path: '/parkSuccess',
+      component: ParkSuccess,
+      title: '停车成功',
       meta: { requiresAuth: true }
     }
   ]
