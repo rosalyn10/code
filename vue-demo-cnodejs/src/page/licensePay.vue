@@ -124,8 +124,8 @@
             this.porderStartTime = arr[i].porderStartTime;
             this.parkingDuration = arr[i].parkingDuration;
             this.receivableMoney = arr[i].receivableMoney;
-            this.orderNo = r.data[0].orderNo;
-            this.parkingId = r.data[0].parkingId;
+            this.orderNo = arr[i].orderNo;
+            this.parkingId = arr[i].parkingId;
           }
         }
 

@@ -57,7 +57,6 @@
           "sourceCode":this.$route.query.sourceCode,
           "verifyCode": this.verCode
         };
-        this.$router.push(this.$route.query.to);
         this.$api.post('/park-onstreet/appuser/wx_bound', para, r => {
           if (r.code == 1000) {
             localStorage.setItem("userId", r.data.userId);

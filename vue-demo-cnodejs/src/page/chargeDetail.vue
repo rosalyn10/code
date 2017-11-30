@@ -8,7 +8,7 @@
       <mt-cell title="停车费用" readonly :value="receivableMoney"></mt-cell>
       <div v-if="this.$route.query.parkingId">
         <mt-cell title="预收费用" readonly :value="preMoney"></mt-cell>
-        <mt-cell title="应付费用" readonly :value="payMoney"></mt-cell>
+        <mt-cell title="应付费用" readonly :value="'￥'+payMoney"></mt-cell>
       </div>
       <div v-else>
         <mt-cell title="欠费金额" readonly :value="arrearage"></mt-cell>
@@ -77,7 +77,7 @@
           this.parkDuration = r.data.parkDuration;
           this.receivableMoney = r.data.receivableMoney;
           this.preMoney = '￥'+r.data.preMoney;
-          this.payMoney ='￥'+(r.data.receivableMoney-r.data.preMoney) ;
+          this.payMoney =r.data.receivableMoney-r.data.preMoney ;
 
         })
       }
@@ -103,12 +103,14 @@
       confirmPay: function () {
         let para = {
           "porderPayType": this.payWay,
-          "money": this.$route.query.arrearage,
+          "money": (!!this.$route.query.arrearage)?this.$route.query.arrearage: this.payMoney,
           "porderNo": this.orderNo,
           scanCode:'WAP'
         };
         this.$api.post('/park-onstreet/orders/online_pay', para, r => {
-
+           if(r.code==1000){
+             window.location.href = r.data.payUrl;
+           }
         })
 
       }

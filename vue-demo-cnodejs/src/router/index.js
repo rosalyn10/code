@@ -157,6 +157,7 @@ router.beforeEach((to, from, next) => {
           }
         })
       } else {
+        localStorage.setItem("userId", obj.userId);
         next()
       }
     } else {
