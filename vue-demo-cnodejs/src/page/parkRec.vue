@@ -34,7 +34,7 @@
     },
     created (){
       this.$parent.headerTitle = '停车记录';
-      this.$api.post('/park-onstreet/appuser/get_park_record',{"userId":this.$route.query.userId},r=>{
+      this.$api.post('/park-onstreet/appuser/get_park_record',{"userId":localStorage.userId},r=>{
         if(r.data.data){
           this.list=r.data.data;
           }else{

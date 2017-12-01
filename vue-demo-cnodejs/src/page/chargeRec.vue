@@ -14,7 +14,7 @@
         },
         created(){
             this.$parent.headerTitle="充值记录";
-            this.$api.post('/park-onstreet/appuser/get_consume_list',{userId:this.$route.query.userId},r=>{
+            this.$api.post('/park-onstreet/appuser/get_consume_list',{userId:localStorage.userId},r=>{
               if(r.data.data){
                 this.items=r.data.data;
               }
