@@ -59,7 +59,11 @@
         };
         this.$api.post('/park-onstreet/appuser/wx_bound', para, r => {
           if (r.code == 1000) {
+            console.log("this.$route.query.redirect:" + this.$route.query.redirect);
             localStorage.setItem("userId", r.data.userId);
+            var cookiedata = "{" + "loginStatus:" + 1 + ",openId:" + this.$route.query.openId + ",sourceCode:" + this.$route.query.sourceCode + ",userId:" + r.data.userId + "}";
+            console.log(encodeURIComponent(cookiedata));
+            document.cookie = "userInfo=" + encodeURIComponent(cookiedata);
             this.$router.push(this.$route.query.redirect)
           }
 
