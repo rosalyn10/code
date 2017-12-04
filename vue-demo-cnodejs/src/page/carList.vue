@@ -25,7 +25,7 @@
     },
     data() {
       return {
-        myCarList: ["{license:'124132'}"]
+        myCarList: []
       }
 
     },
