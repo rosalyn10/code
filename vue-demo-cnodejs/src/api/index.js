@@ -1,6 +1,6 @@
 // 配置API接口地址
 // var root = '/api'
-var root = '';
+var root = '/wechat';
 // 引用axios
 var axios = require('axios')
 
