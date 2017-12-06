@@ -2,10 +2,10 @@
   <div class="myCar">
     <div v-if="myCarList.length">
       <ul>
-        <li class="myCarli" v-for="(item,index) in myCarList">
+        <li class="myCarli" v-for="(item) in myCarList">
           <router-link :to="{ path: 'park', query: { carNum: item.license }}" replace>
             <div class="myCarCon">
-              <span class="myCarTitle">{{item.license}}</span>
+              <span class="myCarTitle font-main">{{item.license}}</span>
             </div>
           </router-link>
         </li>
@@ -13,25 +13,22 @@
     </div>
   </div>
 </template>
-<script>
 
+<script>
   export default {
     created() {
-
       this.$api.post('/park-onstreet/vehicle/get_vehicle_list', {"userId": localStorage.userId}, r => {
         this.myCarList = r.data;
       })
-
     },
     data() {
       return {
         myCarList: []
       }
-
     },
-
   }
 </script>
+
 <style type="text/css" scoped>
   .myCarli {
     width: 100%;
@@ -46,28 +43,9 @@
     /*top: 10px*/
   }
 
-  .switchCon {
-    margin: 10px 20px
-  }
-
   .myCarTitle {
-    font-size: 24px;
-    color: #999;
     margin: 20px 20px;
   }
-
-  .delImg {
-    width: 36px;
-    height: 36px;
-    float: right;
-    margin-right: 20px;
-  }
-
-  .switchSpan {
-    color: #999;
-    font-size: 18px
-  }
-
 
 </style>
 

@@ -75,7 +75,7 @@ const router = new Router({
     {
       path: '/chargeRec',
       component: ChargeRec,
-      title: '充值记录',
+      title: '消费记录',
       meta: { requiresAuth: true }
     },
     {

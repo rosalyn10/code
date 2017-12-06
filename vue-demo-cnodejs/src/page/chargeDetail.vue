@@ -5,22 +5,20 @@
       <mt-cell title="停车场" :value="roadName"></mt-cell>
       <mt-cell align="left" readonly :value="timer"></mt-cell>
       <mt-cell title="停车时长" readonly :value="parkDuration"></mt-cell>
-      <mt-cell title="停车费用" readonly :value="receivableMoney"></mt-cell>
+      <mt-cell title="停车费用" readonly :value="'￥'+receivableMoney"></mt-cell>
       <div v-if="this.$route.query.parkingId">
-        <mt-cell title="预收费用" readonly :value="preMoney"></mt-cell>
+        <mt-cell title="预收费用" readonly :value="'￥'+preMoney"></mt-cell>
         <mt-cell title="应付费用" readonly :value="'￥'+payMoney"></mt-cell>
       </div>
       <div v-else>
-        <mt-cell title="欠费金额" readonly :value="arrearage"></mt-cell>
+        <mt-cell title="欠费金额" readonly :value="'￥'+arrearage"></mt-cell>
       </div>
       <mt-radio
         align="right"
         :options="options" style="margin-bottom: 20px;" v-model="payWay">
       </mt-radio>
-      <router-link to="success">
-        <mt-button type="primary" class="largeBtn" @click.native='confirmPay'>确认缴费</mt-button>
-      </router-link>
     </form>
+    <mt-button type="primary" class="btn-large" size="large" @click.native='confirmPay'>确认缴费</mt-button>
   </div>
 </template>
 
@@ -65,10 +63,10 @@
 
       })
       console.log(this.$route.query.parkingId);
-      if(this.$route.query.parkingId){
+      if (this.$route.query.parkingId) {
         let para = {
-          orderNo:this.$route.query.orderNo,
-          parkingId:this.$route.query.parkingId
+          orderNo: this.$route.query.orderNo,
+          parkingId: this.$route.query.parkingId
         }
         this.$api.post('/park-onstreet/payOrder/get_park_payment_info', para, r => {
           this.license = r.data.license;
@@ -76,8 +74,8 @@
           this.timer = r.data.startTime + '-' + r.data.endTime;
           this.parkDuration = r.data.parkDuration;
           this.receivableMoney = r.data.receivableMoney;
-          this.preMoney = '￥'+r.data.preMoney;
-          this.payMoney =r.data.receivableMoney-r.data.preMoney ;
+          this.preMoney = r.data.preMoney;
+          this.payMoney = r.data.receivableMoney - r.data.preMoney;
 
         })
       }
@@ -88,12 +86,12 @@
         roadName: this.$route.query.roadName,
         timer: this.$route.query.startTime + '-' + this.$route.query.endTime,
         parkDuration: this.$route.query.parkDuration,
-        receivableMoney: '￥' + this.$route.query.receivableMoney,
-        arrearage: '￥' + this.$route.query.arrearage,
-        orderNo:this.$route.query.orderNo,
+        receivableMoney: this.$route.query.receivableMoney,
+        arrearage: this.$route.query.arrearage,
+        orderNo: this.$route.query.orderNo,
         payWay: '',
-        preMoney:'',
-        payMoney:'',
+        preMoney: '',
+        payMoney: '',
         balance: '',
         options: []
 
@@ -103,19 +101,18 @@
       confirmPay: function () {
         let para = {
           "porderPayType": this.payWay,
-          "money": (!!this.$route.query.arrearage)?this.$route.query.arrearage: this.payMoney,
+          "money": (!!this.$route.query.arrearage) ? this.$route.query.arrearage : this.payMoney,
           "porderNo": this.orderNo,
-          scanCode:'WAP'
+          scanCode: 'WAP'
         };
         this.$api.post('/park-onstreet/orders/online_pay', para, r => {
-           if(r.code==1000){
-             window.location.href = r.data.payUrl;
-           }
+          if (r.code === 1000) {
+            this.$router.push({path: `/success`})
+          }
         })
 
       }
     }
-
   }
 
 </script>

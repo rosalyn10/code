@@ -324,9 +324,6 @@
 </script>
 
 <style type="text/css">
-  .btn_large {
-    margin: 80px auto 100px auto;
-  }
 
   .mapCon {
     height: 1080px;

@@ -4,11 +4,11 @@
       <ul>
         <li class="myCarli" v-for="(item,index) in myCarList">
           <div class="myCarCon">
-            <span class="myCarTitle">{{item.license}}</span>
+            <span class="myCarTitle font-main">{{item.license}}</span>
             <img src="../assets/delete.png" class="delImg" @click="openDialog(item,index)">
-            <div class="switchCon">
-              <mt-switch v-model="item.isAutoPay" @change="turn(item)"><span class="switchSpan">自动支付</span></mt-switch>
-            </div>
+            <mt-switch class="switchCon" v-model="item.isAutoPay" @change="turn(item)">
+              <span class="switchSpan">自动支付</span>
+            </mt-switch>
           </div>
         </li>
       </ul>
@@ -22,7 +22,7 @@
       </span>
     </div>
     <router-link to="/addCar">
-      <mt-button type="primary" size="large" class="btn_large"> 添加车辆</mt-button>
+      <mt-button type="primary" size="large" class="btn-large"> 添加车辆</mt-button>
     </router-link>
   </div>
 </template>
@@ -45,7 +45,6 @@
       return {
         myCarList: []
       }
-
     },
     methods: {
       turn: function (item) {
@@ -56,38 +55,34 @@
           "userId": localStorage.userId
         };
         this.$api.post('/park-onstreet/vehicle/update_autopay', para, r => {
-
         })
-
       },
-      openDialog: function (item,index) {
+      openDialog: function (item, index) {
         MessageBox.confirm('', {
           message: '确定删除该车辆吗？',
           title: '提示',
           confirmButtonText: '确定',
           cancelButtonText: '取消'
         }).then(action => {
-          if (action == 'confirm') {
+          if (action === 'confirm') {
             let parm = {
               "license": item.license,
               "userId": localStorage.userId
             };
 
             this.$api.post('/park-onstreet/vehicle/unbind_vehicle', parm, r => {
-              if (r.code == 1000) {
-                this.myCarList.splice(index,1);
+              if (r.code === 1000) {
+                this.myCarList.splice(index, 1);
               }
             })
           }
         }).catch(err => {
-          if (err == 'cancel') {
+          if (err === 'cancel') {
             console.log('cancel unbind');
           }
         });
-
       }
     }
-
   }
 </script>
 <style type="text/css" scoped>
@@ -109,24 +104,20 @@
   }
 
   .myCarTitle {
-    font-size: 24px;
-    color: #999;
     margin: 20px 20px;
   }
 
   .delImg {
-    width: 36px;
-    height: 36px;
+    width: 24px;
+    height: 24px;
     float: right;
     margin-right: 20px;
   }
 
   .switchSpan {
-    color: #999;
+    color: #666;
     font-size: 18px
   }
-
-
 
 </style>
 

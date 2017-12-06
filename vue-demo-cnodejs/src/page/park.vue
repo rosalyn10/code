@@ -11,7 +11,7 @@
     <label class="berthTitle">泊位编号</label>
     <mt-field class="berthInput" placeholder="请输入地面标记的6位泊位数字" type="text" v-model="berth"></mt-field>
     <br/>
-    <mt-button type="primary" size="large" class="btn_large" @click="parkFun">确认</mt-button>
+    <mt-button type="primary" size="large" class="btn-large" @click="parkFun">确认</mt-button>
   </div>
 </template>
 

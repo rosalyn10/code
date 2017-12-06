@@ -5,18 +5,21 @@
         <label class="licenseTitle">{{this.license}}</label>
         <div v-if="vehicleStatus==2">
           <span class="parkSpan">{{this.roadName}}</span>
-          <span class="parkTitle">泊位号：{{this.parkingCode}}</span>
-          <span class="startTime">入场时间:{{this.porderStartTime}}</span>
-          <span class="parkTime">{{this.parkingDuration}}</span>
-          <span class="pay">￥{{this.receivableMoney}}</span>
+          <span class="parkTitle font-main">泊位号：{{this.parkingCode}}</span>
+          <span class="parkTitle font-main">入场时间:{{this.porderStartTime}}</span>
+          <div style="margin-top: -16px">
+            <span class="parkTime font-main">{{this.parkingDuration}}</span>
+            <span class="pay">￥{{this.receivableMoney}}</span>
+          </div>
         </div>
         <div v-else>
           <div class="noCarCon">
-            <span class="parkTitle">无待缴费数据</span>
-            <span class="parkTitle">车辆入场后，可查看停车信息</span>
+            <span class="parkTitle font-main">无待缴费数据</span>
+            <span class="parkTitle font-main">车辆入场后，可查看停车信息</span>
           </div>
         </div>
       </div>
+      <span style="margin-left: 30px;font-size: 18px">选择车辆</span>
       <div class="licCon">
         <mt-cell :title="license_default" is-link @click.native="showLicense"></mt-cell>
         <mt-actionsheet
@@ -24,23 +27,21 @@
           v-model="sheetVisible">
         </mt-actionsheet>
       </div>
-      <router-link :to="{path:`/chargeDetail`,query:{orderNo:this.orderNo,parkingId:this.parkingId}}" >
-
-        <mt-button type="primary" size="large" class="btn_large btnM">停车缴费</mt-button>
-      </router-link>
+      <mt-button type="primary" size="large" @click.native="onPay" :plain='this.payBtnDisable' class="btn-large">
+        缴费
+      </mt-button>
     </div>
     <div class="tipDiv" v-else>
       <span class="welSpan">
         欢迎使用城市停车
       </span>
-        <span class="needSpan">
+      <span class="needSpan">
         您需要绑定车牌才可享受停车服务哦
       </span>
       <router-link to="/addCar">
-        <mt-button type="primary" size="large" class="btn_large"> 添加车辆</mt-button>
+        <mt-button type="primary" size="large" class="btn-large"> 添加车辆</mt-button>
       </router-link>
     </div>
-
   </div>
 </template>
 <script>
@@ -73,13 +74,9 @@
             this.receivableMoney = r.data[0].receivableMoney;
             this.orderNo = r.data[0].orderNo;
             this.parkingId = r.data[0].parkingId;
-
+            this.payBtnDisable = r.data[0].receivableMoney <= 0
           })
-
-
         }
-
-
       })
     },
     data() {
@@ -96,11 +93,9 @@
         porderStartTime: '',
         parkingDuration: '',
         receivableMoney: '',
-        orderNo:'',
-        parkingId:''
-
-
-
+        orderNo: '',
+        parkingId: '',
+        payBtnDisable: false
       }
     },
     methods: {
@@ -109,14 +104,18 @@
         console.log(item.name);
         console.log(this.myCarStatusList);
         this.license_default = item.name;
-        this.getInfoByLicense(item.name,this.myCarStatusList)
+        this.getInfoByLicense(item.name, this.myCarStatusList)
+      },
+      onPay: function () {
+        if (!this.payBtnDisable)
+          this.$router.push({path: `/chargeDetail`, query: {orderNo: this.orderNo, parkingId: this.parkingId}})
       },
       showLicense: function () {
         this.sheetVisible = true;
       },
       getInfoByLicense: function (license, arr) {
         for (let i = 0; i < arr.length; i++) {
-          if (license == arr[i].license) {
+          if (license === arr[i].license) {
             this.license = arr[i].license
             this.vehicleStatus = arr[i].vehicleStatus;
             this.roadName = arr[i].roadName;
@@ -126,9 +125,9 @@
             this.receivableMoney = arr[i].receivableMoney;
             this.orderNo = arr[i].orderNo;
             this.parkingId = arr[i].parkingId;
+            this.payBtnDisable = arr[i].receivableMoney <= 0
           }
         }
-
       }
     }
   }
@@ -160,36 +159,22 @@
   }
 
   .parkTitle {
-    font-size: 18px;
-    color: #666666;
-    margin: 20px 20px;
-    display: block;
-  }
-
-  .startTime {
-    font-size: 18px;
-    color: #A7A7A7;
     margin: 20px 20px;
     display: block;
   }
 
   .parkTime {
-    font-size: 18px;
-    color: #A7A7A7;
     margin: 20px 20px;
   }
 
   .pay {
-    font-size: 24px;
+    font-size: 36px;
     color: #60A9FA;
   }
 
   .licCon {
     margin-left: 20px;
+    margin-right: 20px;
   }
 
-  .btnM {
-    width: 80%;
-    margin: 20px auto;
-  }
 </style>

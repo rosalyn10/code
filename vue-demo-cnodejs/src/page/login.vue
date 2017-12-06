@@ -4,7 +4,7 @@
     <mt-field label="验证码" placeholder="请输入验证码" type="number" v-model="verCode">
       <mt-button type="default" size="small" @click.native="getVerCode" :disabled="disable">{{this.buttonTitle}}</mt-button>
     </mt-field>
-    <mt-button type="primary" size="large" class="btn_large" @click.native="bindPhone"> 绑定手机</mt-button>
+    <mt-button type="primary" size="large" class="btn-large" @click.native="bindPhone"> 绑定手机</mt-button>
   </div>
 </template>
 <script>
@@ -73,7 +73,4 @@
   }
 </script>
 <style type="text/css">
-  .btn_large {
-    margin: 80px auto 100px auto;
-  }
 </style>

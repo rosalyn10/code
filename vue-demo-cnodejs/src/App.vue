@@ -55,7 +55,13 @@ export default {
   color: #999999;
   margin: 2% 5% 1% 5%;
 }
+.btn-large {
+  width: 80%;
+  margin: 20px auto;
+}
+.font-main{
+  font-size: 18px;
+  color: #666666;
+}
 
-/*按钮*/
-.largeBtn{margin: 0 2%;width: 96%;}
 </style>
